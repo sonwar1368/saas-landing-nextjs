@@ -1,23 +1,64 @@
-import { CallToAction } from "@/sections/CallToAction";
-import { Footer } from "@/sections/Footer";
-import { Header } from "@/sections/Header";
-import { Hero } from "@/sections/Hero";
-import { LogoTicker } from "@/sections/LogoTicker";
-import { Pricing } from "@/sections/Pricing";
-import { ProductShowcase } from "@/sections/ProductShowcase";
-import { Testimonials } from "@/sections/Testimonials";
+'use client';
+
+import { motion } from 'framer-motion';
+import Confetti from 'react-confetti';
+import { useState } from 'react';
 
 export default function Home() {
+  const [showConfetti, setShowConfetti] = useState(false);
+
   return (
-    <div>
-      <Header />
-      <Hero />
-      <LogoTicker />
-      <ProductShowcase />
-      <Pricing />
-      <Testimonials />
-      <CallToAction />
-      <Footer />
-    </div>
+    <>
+      {showConfetti && <Confetti recycle={false} numberOfPieces={600} />}
+
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/20 to-purple-800/20 blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+          <motion.div initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+            <h1 className="text-6xl lg:text-8xl font-black bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
+              NEXLIFY
+            </h1>
+            <p className="text-2xl lg:text-3xl text-gray-300 mt-8 font-light">
+              DevOps Pipeline as a Service
+            </p>
+            <p className="text-xl text-gray-400 mt-6 max-w-2xl">
+              Fuel your development velocity with expert, done-for-you pipeline optimization. From infrastructure monitoring and automated deployments to performance analytics — we handle it all.
+            </p>
+            <button
+              onClick={() => setShowConfetti(true)}
+              className="mt-12 px-12 py-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-xl font-bold rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
+            >
+              Get Early Access →
+            </button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+            className="relative"
+          >
+            <div className="bg-black/40 backdrop-blur-2xl rounded-3xl p-10 border border-purple-500/30 shadow-2xl">
+              <pre className="text-cyan-400 text-sm font-mono leading-relaxed">
+{`name: "Accelerated CI/CD Pipeline"
+
+on: [push, pull_request]
+
+jobs:
+  nexlify_optimize:
+    runs-on: nexlify-runners
+    steps:
+      - uses: nexlify/pipeline-accelerator@v3
+      - name: "AI-Powered Analytics"
+        with:
+          mode: "intelligent"`}
+              </pre>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }
